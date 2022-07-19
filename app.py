@@ -1,6 +1,5 @@
 #@title **Run server**
 from flask import Flask, request, jsonify
-from flask_cors import CORS, cross_origin 
 import easyocr
 
 import numpy as np
@@ -9,10 +8,6 @@ import base64
 
 
 app = Flask(__name__)
-# Apply Flask CORS
-CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
-app.config['JSON_SORT_KEYS'] = False
 reader = None
 
 def solutionCaptcha(captcha):
@@ -30,7 +25,6 @@ def chuyen_base64_sang_anh(anh_base64):
     return anh_base64
 
 @app.route('/s', methods=['POST'] )
-@cross_origin(origin='*')
 def solutionCaptcha_process():
     captchaResult = []
     captchabase64 = request.form.get('captchabase64')
@@ -39,11 +33,10 @@ def solutionCaptcha_process():
     return jsonify(captchaResult)
 
 @app.route('/')
-@cross_origin(origin='*')
 def hello_world():
     return " Server OK"
 
 # Start Backend
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='5000')
+    app.run()
