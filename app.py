@@ -20,6 +20,15 @@ def chuyen_base64_sang_anh(anh_base64):
         return None
     return anh_base64
 
+@app.route('/')
+def hello_world():
+    return jsonify([
+        {
+            "id": 1,
+            "title": "Server Solution Captcha",
+            "description": "This Is Server Test Solution Normal Captcha"
+        }])
+
 @app.route('/s', methods=['POST'] )
 def solutionCaptcha_process():
     captchaResult = []
