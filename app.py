@@ -42,6 +42,10 @@ def solutionCaptcha_process():
 
 @app.route('/')
 def hello_world():
+    return " Server OK"
+
+@app.route('/ini-model')
+def iniModel():
     reader = easyocr.Reader(['en'], gpu=False)
     save_object(reader, "model.pkl")
     return " Server OK"
