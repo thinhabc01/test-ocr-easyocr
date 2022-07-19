@@ -4,6 +4,5 @@ gunicorn
 -f https://download.pytorch.org/whl/torch_stable.html
 torch==1.11.0+cpu
 torchvision==0.12.0+cpu
-opencv-python
-opencv-python-headless
+opencv-python==4.5.5.64
 easyocr
