@@ -1,6 +1,7 @@
 #@title **Run server**
 from flask import Flask, request, jsonify
 import easyocr
+import pickle
 
 import numpy as np
 import cv2
@@ -8,12 +9,18 @@ import base64
 
 
 app = Flask(__name__)
-reader = None
 
+def save_object(obj, filename):
+    with open(filename, 'wb') as outp:  # Overwrites any existing file.
+        pickle.dump(obj, outp, pickle.HIGHEST_PROTOCOL)
+        
+def load_object(filename):
+    with open(filename, 'rb') as inp:
+        reader = pickle.load(inp)
+    return reader
+        
 def solutionCaptcha(captcha):
-    global reader
-    if reader == None:
-        reader = easyocr.Reader(['en'], gpu=False)
+    reader = load_object("model.pkl")
     result = reader.readtext(captcha, detail=0)
     return result
 
@@ -35,6 +42,8 @@ def solutionCaptcha_process():
 
 @app.route('/')
 def hello_world():
+    reader = easyocr.Reader(['en'], gpu=False)
+    save_object(reader, "model.pkl")
     return " Server OK"
 
 # Start Backend
