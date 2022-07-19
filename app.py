@@ -8,12 +8,13 @@ import cv2
 import base64
 
 
-reader = easyocr.Reader(['en'], gpu=False)
+
 app = Flask(__name__)
 # Apply Flask CORS
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['JSON_SORT_KEYS'] = False
+reader = easyocr.Reader(['en'], gpu=False)
 
 def solutionCaptcha(captcha):
     result = reader.readtext(captcha, detail=0)
