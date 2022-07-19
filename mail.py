@@ -1,6 +1,4 @@
-from flask import Flask
-from flask_cors import CORS, cross_origin
-from flask import request
+from flask import Flask, request
 import easyocr
 
 import numpy as np
@@ -9,9 +7,6 @@ import base64
 
 reader = easyocr.Reader(['en'])
 app = Flask(__name__)
-# Apply Flask CORS
-CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
 
 def solutionCaptcha(face):
     result = reader.readtext(face, detail=0)
@@ -26,7 +21,6 @@ def chuyen_base64_sang_anh(anh_base64):
     return anh_base64
 
 @app.route('/s', methods=['POST'] )
-@cross_origin(origin='*')
 def solutionCaptcha_process():
     captchaResult = []
     captchabase64 = request.form.get('captchabase64')
@@ -36,4 +30,4 @@ def solutionCaptcha_process():
 
 # Start Backend
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='6868')
+	app.run(debug=True, use_reloader=True)
