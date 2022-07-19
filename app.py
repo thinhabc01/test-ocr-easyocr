@@ -1,5 +1,5 @@
 #@title **Run server**
-from flask import Flask, request, jsonify
+from flask import *
 import easyocr
 import pickle
 
@@ -55,10 +55,10 @@ def iniModel():
 @app.route('/return-files', methods=['GET'])
 def return_files_tut():
     file = str(request.args.get('file'))
-	try:
-		return send_file(file, attachment_filename=file)
-	except Exception as e:
-		return str(e)
+    try:
+        return send_file(file, attachment_filename=file)
+    except Exception as e:
+        return str(e)
     
 @app.route('/getinfo')
 def getinfo():
