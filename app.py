@@ -7,8 +7,6 @@ import numpy as np
 import cv2
 import base64
 
-reader = easyocr.Reader(['en'], gpu=False)
-
 
 app = Flask(__name__)
 # Apply Flask CORS
@@ -18,6 +16,7 @@ app.config['JSON_SORT_KEYS'] = False
 
 
 def solutionCaptcha(captcha):
+    reader = easyocr.Reader(['en'], gpu=False)
     result = reader.readtext(captcha, detail=0)
     return result
 
