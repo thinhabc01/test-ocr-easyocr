@@ -7,10 +7,10 @@ import numpy as np
 import cv2
 import base64
 
+reader = easyocr.Reader(['en'], gpu=False)
 
 
 app = Flask(__name__)
-reader = easyocr.Reader(['en'], gpu=False)
 # Apply Flask CORS
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
