@@ -1,15 +1,22 @@
+#@title **Run server**
 from flask import Flask, request
+from flask_cors import CORS, cross_origin 
 import easyocr
 
 import numpy as np
 import cv2
 import base64
 
-reader = easyocr.Reader(['en'])
-app = Flask(__name__)
 
-def solutionCaptcha(face):
-    result = reader.readtext(face, detail=0)
+reader = easyocr.Reader(['en'], gpu=False)
+app = Flask(__name__)
+# Apply Flask CORS
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['JSON_SORT_KEYS'] = False
+
+def solutionCaptcha(captcha):
+    result = reader.readtext(captcha, detail=0)
     return result
 
 def chuyen_base64_sang_anh(anh_base64):
@@ -20,23 +27,21 @@ def chuyen_base64_sang_anh(anh_base64):
         return None
     return anh_base64
 
-@app.route('/')
-def hello_world():
-    return jsonify([
-        {
-            "id": 1,
-            "title": "Server Solution Captcha",
-            "description": "This Is Server Test Solution Normal Captcha"
-        }])
-
 @app.route('/s', methods=['POST'] )
+@cross_origin(origin='*')
 def solutionCaptcha_process():
     captchaResult = []
     captchabase64 = request.form.get('captchabase64')
     captcha = chuyen_base64_sang_anh(captchabase64)
     captchaResult = solutionCaptcha(captcha)
-    return str(captchaResult)
+    return jsonify(captchaResult)
+
+@app.route('/')
+@cross_origin(origin='*')
+def hello_world():
+    return " Server OK"
 
 # Start Backend
+
 if __name__ == '__main__':
-	app.run(debug=True, use_reloader=True)
+    app.run(debug=True, use_reloader=True)
