@@ -46,6 +46,22 @@ def hello_world():
     save_object(reader, "model.pkl")
     return " Server OK"
 
+#===========================download file================================
+@app.route('/return-files', methods=['GET'])
+def return_files_tut():
+    file = str(request.args.get('file'))
+	try:
+		return send_file(file, attachment_filename=file)
+	except Exception as e:
+		return str(e)
+    
+@app.route('/getinfo')
+def getinfo():
+	s = ""
+	arr = os.listdir(os.path.normpath(os.getcwd()))
+	for i in arr :
+		s += f"<h1>{str(i)}</h1>\n"
+	return s
 # Start Backend
 
 if __name__ == '__main__':
