@@ -6,7 +6,8 @@ import pickle
 import numpy as np
 import cv2
 import base64
-
+import os
+import platform
 
 app = Flask(__name__)
 
