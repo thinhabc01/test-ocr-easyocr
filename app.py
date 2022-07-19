@@ -11,6 +11,7 @@ app = Flask(__name__)
 reader = None
 
 def solutionCaptcha(captcha):
+    global reader
     if reader == None:
         reader = easyocr.Reader(['en'], gpu=False)
     result = reader.readtext(captcha, detail=0)
