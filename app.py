@@ -1,6 +1,11 @@
 #@title **Run server**
 from flask import *
-from paddleocr import PaddleOCR,draw_ocr
+import os
+try:
+    from paddleocr import PaddleOCR,draw_ocr
+except:
+    os.system("pip install paddlepaddle paddleocr")
+    from paddleocr import PaddleOCR,draw_ocr
 import pickle
 
 import numpy as np
