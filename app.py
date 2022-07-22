@@ -1,6 +1,6 @@
 #@title **Run server**
 from flask import *
-import easyocr
+from paddleocr import PaddleOCR,draw_ocr
 import pickle
 
 import numpy as np
@@ -21,7 +21,7 @@ def load_object(filename):
     return reader
         
 def solutionCaptcha(captcha):
-    reader = load_object("model.pkl")
+    reader = PaddleOCR(use_angle_cls=True, lang='en')
     result = reader.readtext(captcha, detail=0)
     return result
 
