@@ -1,11 +1,11 @@
 #@title **Run server**
 from flask import *
 import os
-try:
-    from paddleocr import PaddleOCR,draw_ocr
-except:
-    os.system("pip install paddlepaddle paddleocr")
-    from paddleocr import PaddleOCR,draw_ocr
+# try:
+# from paddleocr import PaddleOCR,draw_ocr
+# except:
+#     os.system("pip install paddlepaddle paddleocr")
+#     from paddleocr import PaddleOCR,draw_ocr
 import pickle
 
 import numpy as np
@@ -42,9 +42,10 @@ def chuyen_base64_sang_anh(anh_base64):
 def solutionCaptcha_process():
     captchaResult = []
     captchabase64 = request.form.get('captchabase64')
-    captcha = chuyen_base64_sang_anh(captchabase64)
-    captchaResult = solutionCaptcha(captcha)
-    return jsonify(captchaResult)
+#     captcha = chuyen_base64_sang_anh(captchabase64)
+#     captchaResult = solutionCaptcha(captcha)
+#     return jsonify(captchaResult)
+    return error Server
 
 @app.route('/')
 def hello_world():
